@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>TL Hotel POS</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="logo">TL</div>
+  <div class="brand"><b>TL Hotel </b><span>Hotel POS </span></div>
+  <nav id="nav">
+    <button data-view="landing">Home</button>
+    <button data-view="waiter">Waiter</button>
+    <button data-view="kds">Kitchen</button>
+    <button data-view="cashier">Cashier</button>
+    <button data-view="manager">Manager</button>
+    <button data-view="inventory">Inventory</button>
+  </nav>
+  <select id="outlet"></select>
+</header>
+
+<main>
+  <!-- LANDING -->
+  <section id="landing" class="view">
+    <div class="hero">
+      <div class="hero-text">
+        <span class="eyebrow">Real-time F&B Suite</span>
+        <h1>One POS.<br>Every outlet.<br><span class="accent">Live, honest, fast.</span></h1>
+        <p>From the floor plan to the kitchen pass, every action lands instantly.</p>
+        <button class="btn-primary" onclick="show('waiter')">Enter the suite →</button>
+      </div>
+       <div class="hero-stats">
+        <div><b>184</b><span>Rooms</span></div>
+        <div><b>2</b><span>Outlets</span></div>
+        <div><b>28</b><span>Years</span></div>
+      </div>
+    </div>
+    <div class="facilities">
+      <h2>Hotel Facilities</h2>
+      <div class="grid-6">
+        <div><h4>Fine Dining</h4><p>Two award-winning F&B outlets running every night.</p></div>
+        <div><h4>Rooftop Bar</h4><p>Skyline views, signature cocktails, live DJ weekends.</p></div>
+        <div><h4>Spa & Wellness</h4><p>Full-service spa, sauna, and yoga deck.</p></div>
+        <div><h4>Infinity Pool</h4><p>Heated, all-day, with poolside service.</p></div>
+        <div><h4>Banquet Halls</h4><p>Three event spaces — weddings to boardrooms.</p></div>
+        <div><h4>24×7 Concierge</h4><p>Airport pickup, ticketing, in-room dining.</p></div>
+      </div>
+    </div>
+    <div class="roles">
+      <h2>Pick a surface</h2>
+      <div class="grid-3">
+        <a onclick="show('waiter')"><b>Waiter</b><p>Open tables, fire orders.</p></a>
+        <a onclick="show('kds')"><b>Kitchen Display</b><p>Live ticket queue, bump.</p></a>
+        <a onclick="show('cashier')"><b>Cashier</b><p>Split bills, CGST+SGST, pay.</p></a>
+        <a onclick="show('manager')"><b>Manager</b><p>Cross-outlet KPIs, approvals.</p></a>
+        <a onclick="show('inventory')"><b>Inventory</b><p>Stock levels, low-stock block.</p></a>
+      </div>
+    </div>
+  </section>
+    
+  <!-- WAITER -->
+  <section id="waiter" class="view hidden">
+    <h2>Floor Plan</h2>
+    <div id="tables" class="tables"></div>
+    <div id="orderPanel" class="hidden">
+      <button onclick="closeOrder()">← Back</button>
+      <h3>Table <span id="tblLabel"></span></h3>
+      <div class="two-col">
+        <div id="menuList" class="menu-list"></div>
+        <div class="check">
+          <h4>Open Check</h4>
+          <ul id="orderItems"></ul>
+          <div class="totals">
+            <div>Subtotal <span id="sub">₹0</span></div>
+            <div>CGST 2.5% <span id="cgst">₹0</span></div>
+            <div>SGST 2.5% <span id="sgst">₹0</span></div>
+            <div><b>Total <span id="tot">₹0</span></b></div>
+          </div>
+          <button class="btn-primary" onclick="fireOrder()">🔥 Fire to Kitchen</button>
+        </div>
+      </div>
+    </div>
+  </section>
+       
+
+  <!-- KDS -->
+  <section id="kds" class="view hidden">
+    <h2>Kitchen Display · <span id="ticketCount">0</span> active</h2>
+    <div id="tickets" class="tickets"></div>
+  </section>
+
+  <!-- CASHIER -->
+  <section id="cashier" class="view hidden">
+    <h2>Cashier · Open Checks</h2>
+    <button onclick="showZ()">Z-Report</button>
+    <div id="openChecks" class="grid-2"></div>
+    <div id="payPanel" class="hidden">
+      <h3>Check for Table <span id="payTbl"></span></h3>
+      <ul id="payItems"></ul>
+      <div class="totals">
+        <div>Total <b id="payTotal">₹0</b></div>
+      </div>
+      <div class="pay-buttons">
+        <button onclick="pay('cash')">💵 Cash</button>
+        <button onclick="pay('card')">💳 Card</button>
+        <button onclick="pay('upi')">📱 UPI</button>
+        </div>
+    </div>
+    <div id="zModal" class="modal hidden">
+      <div class="modal-box">
+        <h3>Z-Report</h3>
+        <div id="zContent"></div>
+        <button onclick="document.getElementById('zModal').classList.add('hidden')">Close</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANAGER -->
+  <section id="manager" class="view hidden">
+    <h2>Manager Dashboard</h2>
+    <div id="kpis" class="grid-4"></div>
+    <h3>Per Outlet</h3>
+    <div id="outletStats" class="grid-2"></div>
+  </section>
+  <!--INVENTORY -->
+  <section id="inventory" class="view hidden">
+    <h2>Inventory · Stock</h2>
+    <table id="stockTable">
+      <thead><tr><th>Item</th><th>Category</th><th>Stock</th><th>Action</th></tr></thead>
+      <tbody id="stockBody"></tbody>
+    </table>
+  </section>
+  </main>
+
+<script src="script.js"></script>
+</body>
+</html>
